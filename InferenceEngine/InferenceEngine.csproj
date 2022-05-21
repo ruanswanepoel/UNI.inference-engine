@@ -44,8 +44,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="src\CommandProcessor.cs" />
+    <Compile Include="src\KnowledgeBases\Connectives\Connective.cs" />
+    <Compile Include="src\KnowledgeBases\Propositions\AtomicProposition.cs" />
+    <Compile Include="src\KnowledgeBases\Propositions\CompoundProposition.cs" />
+    <Compile Include="src\Helpers.cs" />
+    <Compile Include="src\InferenceEngine.cs" />
+    <Compile Include="src\KnowledgeBases\KnowledgeBase.cs" />
     <Compile Include="src\Program.cs" />
+    <Compile Include="src\KnowledgeBases\Propositions\Proposition.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

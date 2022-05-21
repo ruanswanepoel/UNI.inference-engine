@@ -6,12 +6,8 @@ using System.Threading.Tasks;
 
 namespace InferenceEngine {
 
-	class CommandProcessor {
+    class InferenceEngine {
 
-		public void execute(string[] args) {
-
-		}
-
-	}
+    }
 
 }
