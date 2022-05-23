@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using InferenceEngine.KnowledgeBases.Propositions;
 
 namespace InferenceEngine {
 
@@ -8,15 +7,15 @@ namespace InferenceEngine {
 
         static void Main(string[] args) {
 
-            List<Proposition> propositions = new List<Proposition>();
+            string ask = "d";
 
-            string clause = "p2=> p3; p3 => p1; c => e; b&e => f; f&g => h; p1=>d; p1&p3 => c; a; b; p2;";
-            clause = clause.RemoveWhitespace();
-            string[] props = clause.Split(';');
+            string line = "p2=> p3; p3 => p1; c => e; b&e => f; f&g => h; p1=>d; p1&p3 => c; a; b; p2";
+            line = line.RemoveWhitespace();
+            string[] clauses = line.Split(';');
 
-            foreach (string s in props) {
-                propositions.Add(Proposition.Create(s));
-            }
+            KnowledgeBase kb = new KnowledgeBase(clauses);
+
+            bool a = InferenceEngine.PL_FC_Entails(kb, ask);
 
         }
 

@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using InferenceEngine.KnowledgeBases.Connectives;
 
-namespace InferenceEngine.KnowledgeBases.Propositions {
+namespace InferenceEngine {
 
     /// <summary>
     /// A proposition that is a compound formula of atomic propositions.

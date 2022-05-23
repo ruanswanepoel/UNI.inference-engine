@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace InferenceEngine.KnowledgeBases.Propositions {
+namespace InferenceEngine {
 
     /// <summary>
     /// A Proposition that is atomic.

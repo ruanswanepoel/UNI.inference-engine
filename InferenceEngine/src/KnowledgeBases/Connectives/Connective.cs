@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace InferenceEngine.KnowledgeBases.Connectives {
+namespace InferenceEngine {
 
     class Connective {
 
