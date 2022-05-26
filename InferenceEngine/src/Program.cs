@@ -15,7 +15,32 @@ namespace InferenceEngine {
 
             KnowledgeBase kb = new KnowledgeBase(clauses);
 
-            bool a = InferenceEngine.PL_FC_Entails(kb, ask);
+            List<string> lst = new List<string> {
+                "a",
+                "b",
+                "c",
+                "d",
+                "e",
+                "f",
+                "g",
+                "h",
+                "p1",
+                "p2",
+                "p3"
+            };
+
+            foreach (string a in lst) {
+                List<Symbol> result = InferenceEngine.PL_FC_Entails(kb, new Symbol(a));
+                Console.Write("ASK(" + a + ")");
+                if (result == null) {
+                    Console.WriteLine("NO");
+                }
+                else {
+                    Console.WriteLine("YES: " + Helpers.SymbolListString(result));
+                }
+            }
+
+            Console.ReadKey();
 
         }
 
