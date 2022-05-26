@@ -6,15 +6,25 @@ namespace InferenceEngine {
 
     class InferenceEngine {
 
-        // Truth table algorithm
-        public static bool TT_Entails(KnowledgeBase kb, string a) {
+        /// <summary>
+        /// Truth table algorithm
+        /// </summary>
+        /// <param name="kb">The knowledgebase</param>
+        /// <param name="a">The ASK symbol</param>
+        /// <returns></returns>
+        public static bool TT_Entails(KnowledgeBase kb, Symbol a) {
 
             List<Symbol> symbols = new List<Symbol>(kb.Symbols);
             return TT_Check_All(kb, a, symbols, new List<int>());
 
         }
 
-        // Forward chaining algorithm
+        /// <summary>
+        /// Forward chaining algorithm
+        /// </summary>
+        /// <param name="kb">The knowledgebase</param>
+        /// <param name="q">The ASK symbol</param>
+        /// <returns></returns>
         public static List<Symbol> PL_FC_Entails(KnowledgeBase kb, Symbol q) {
 
             Dictionary<Clause, int> count = kb.GetClausePremiseCount();
@@ -53,47 +63,59 @@ namespace InferenceEngine {
 
         }
 
-        // Backward chaining algorithm
-        public static bool PL_BC_Entails(KnowledgeBase kb, Symbol q) {
+        /// <summary>
+        /// Backward chaining algorithm
+        /// </summary>
+        /// <param name="kb">The knowledgebase</param>
+        /// <param name="q">The ASK symbol</param>
+        /// <returns></returns>
+        public static List<Symbol> PL_BC_Entails(KnowledgeBase kb, Symbol q) {
 
-            Dictionary<Clause, int> count = kb.GetClausePremiseCount();
             Queue<Symbol> agenda = new Queue<Symbol>();
-            Dictionary<Symbol, bool> inferred = agenda.ToDictionary(x => x, x => false);
+            List<Symbol> visited = new List<Symbol>(agenda);
 
             agenda.Enqueue(q);
 
+            // Loop until there are no more symbols
             while (agenda.Count != 0) {
-                // Get next symbol in queue
+                // Pop the next symbol from the agenda
                 Symbol p = agenda.Dequeue();
-                //
-                if (!inferred[p]) {
-                    inferred[p] = true;
-                    // Get clause with current symbol as the head
+                // If we haven't already checked the current symbol
+                if (!visited.Contains(p)) {
+                    visited.Add(p);
                     Clause c = kb.GetWithHead(p);
-                    // 
-                    foreach (Symbol s in c.Premises) {
-                        agenda.Enqueue(s);
-                        inferred.Add(s, false);
+                    if (c == null) {
+                        // If we've found that a symbol is unattainable, then the knowledgebase does not entail q
+                        if (!kb.Symbols.Contains(p)) {
+                            return null;
+                        }
+                    }
+                    else {
+                        // Add all premises of the clause to the queue
+                        foreach (Symbol s in c.Premises) {
+                            agenda.Enqueue(s);
+                        }
                     }
                 }
             }
 
-            return false;
+            // Return the list of all visited symbols in reverse order
+            visited.Reverse();
+            return visited;
 
         }
 
-        static bool TT_Check_All(KnowledgeBase kb, string a, List<Symbol> symbols, List<int> model) {
-
+        // Internal truth table recursive function
+        static bool TT_Check_All(KnowledgeBase kb, Symbol a, List<Symbol> symbols, List<int> model) {
             return false;
-
-            //if (kb.IsEmpty) {
-            //	return PL_True(kb, model) ? PL_True(kb, a) : true;
+            //if (symbols.Count == 0) {
+            //    return PL_True(kb, model) ? PL_True(kb, a) : true;
             //}
             //else {
-            //	Proposition p = symbols[0];
-            //	symbols.RemoveAt(0);
-            //	return TT_Check_All(kb, a, symbols, Extend(p, true, model)) &&
-            //		TT_Check_All(kb, a, symbols, Extend(p, false, model));
+            //    Symbol p = symbols[0];
+            //    symbols.RemoveAt(0);
+            //    return TT_Check_All(kb, a, symbols, Extend(p, true, model)) &&
+            //        TT_Check_All(kb, a, symbols, Extend(p, false, model));
             //}
 
         }

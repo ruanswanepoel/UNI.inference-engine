@@ -56,6 +56,11 @@ namespace InferenceEngine {
 
         }
 
+        /// <summary>
+        /// Gets the clause with the given result/head
+        /// </summary>
+        /// <param name="p">The head symbol</param>
+        /// <returns>The clause</returns>
         public Clause GetWithHead(Symbol p) {
 
             foreach (Clause c in Clauses) {
@@ -65,6 +70,27 @@ namespace InferenceEngine {
             }
 
             return null;
+
+        }
+
+        /// <summary>
+        /// Gets all the possible symbols found in the knowledgebase
+        /// </summary>
+        /// <returns>All the symbols</returns>
+        public List<Symbol> GetAllSymbols() {
+
+            List<Symbol> result = new List<Symbol>(Symbols);
+
+            foreach (Clause c in Clauses) {
+                foreach (Symbol s in c.Premises) {
+                    if (!result.Contains(s))
+                        result.Add(s);
+                }
+                if (!result.Contains(c.Head))
+                    result.Add(c.Head);
+            }
+
+            return result;
 
         }
 
