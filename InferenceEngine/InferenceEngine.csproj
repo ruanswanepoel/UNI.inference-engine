@@ -45,14 +45,10 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="src\Clause.cs" />
-    <Compile Include="src\KnowledgeBases\Connectives\Connective.cs" />
-    <Compile Include="src\KnowledgeBases\Propositions\AtomicProposition.cs" />
-    <Compile Include="src\KnowledgeBases\Propositions\CompoundProposition.cs" />
     <Compile Include="src\Helpers.cs" />
     <Compile Include="src\InferenceEngine.cs" />
     <Compile Include="src\KnowledgeBase.cs" />
     <Compile Include="src\Program.cs" />
-    <Compile Include="src\KnowledgeBases\Propositions\Proposition.cs" />
     <Compile Include="src\Symbol.cs" />
   </ItemGroup>
   <ItemGroup>
